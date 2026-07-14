@@ -47,13 +47,13 @@ The setup window allows you to set the options for how UCurses is deployed.
 
 * Grid Size: This setting controls how many row and columns the character grid on screen has, and the base rendering resolution that the grid will use. The dropdown has a selection of curated VGA text modes that allow a range of different looks for your grid. If you would instead like to create your own selection, choose the Custom option to get additional settings.
 
-⋅⋅⋅⋅* Size of Grid: Sets how many row and columns are in the character grid.
+    * Size of Grid: Sets how many row and columns are in the character grid.
 
-⋅⋅⋅⋅* DOS Screen Resolution: Sets the reference resolu􀀋on that the grid will use.
+    * DOS Screen Resolution: Sets the reference resolu􀀋on that the grid will use.
 
-⋅⋅⋅⋅* Character Size: The size of each character space in the grid.
+    * Character Size: The size of each character space in the grid.
 
-⋅⋅⋅⋅* Offset Line: Adds a extra line after each character space.
+    * Offset Line: Adds a extra line after each character space.
 
 * Aspect Ratio: This sets the aspect ratio for the display output to the main camera.
 
