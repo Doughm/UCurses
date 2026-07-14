@@ -22,12 +22,14 @@ An asset package of UCurses can be downloaded from the Unity Store website at:
 https://assetstore.unity.com/packages/tools/gui/ucurses-311511 
 
 
+
 __Manual__ __Install__
 
 To manually install UCurses, import the "UCurses" folder from this repository into your project.
 
 
 Once imported you can deploy UCurses from the main Unity menu, select Window → UCurses Setup. This will open the setup window.
+
 
 
 ![alt text](https://raw.githubusercontent.com/Doughm/UCurses/refs/heads/main/Images/Menu_Image.png)
