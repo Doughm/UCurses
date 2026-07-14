@@ -16,7 +16,7 @@ UCurses requires installation of the Unity Input System through the Package Mana
 
 ## Setup
 
-__Automatic __Install__
+__Automatic__ __Install__
 An asset package of UCurses can be downloaded from the Unity Store website at:
 https://assetstore.unity.com/packages/tools/gui/ucurses-311511 
 
