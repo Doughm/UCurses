@@ -1,11 +1,11 @@
-Banner Image
+![alt text](https://raw.githubusercontent.com/Doughm/UCurses/refs/heads/main/Images/Banner_Image.png)
 
 
 # UCurses
 UCurses is a framework used to create games and applications that mimic the look and feel of IBM compatible DOS Text-based user interfaces within Unity’s canvas system. It's functionality is based on the legendary console text-based user interface library Curses. UCurses can emulate all DOS text display modes that use 9x16 pixel fonts in close to pixel perfect output.
 
 
-Sample Image
+![alt text](https://raw.githubusercontent.com/Doughm/UCurses/refs/heads/main/Images/Sample_Image.png)
 
 
 
@@ -18,13 +18,13 @@ UCurses requires installation of the Unity Input System through the Package Mana
 To install UCurses, import the "UCurses" folder into your project. Once imported you can deploy UCurses from the main Unity menu, select Window → UCurses Setup. This will open the setup window.
 
 
-Menu Image
+![alt text](https://raw.githubusercontent.com/Doughm/UCurses/refs/heads/main/Images/Menu_Image.png)
 
 
 Warning: It is highly recommended that you create a new scene for use with UCurses. UCurses removes all Camera and Canvas objects when deployed and replaces them with its own. If you do wish to deploy to a scene that is using any of these objects in a custom way, you may have unpredictable results. If you do deploy to a scene already in development, it is highly recommended that you backup the scene beforehand.
 
 
-Dialog Image
+![alt text](https://raw.githubusercontent.com/Doughm/UCurses/refs/heads/main/Images/Dialog_Image.png)
 
 
 
