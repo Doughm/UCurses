@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: b2553e759ce8b9247a7098f485fc3b6d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311511
+  packageName: UCurses
+  packageVersion: 1.02.1
+  assetPath: Assets/UCurses/Code/UCurses.cs
+  uploadId: 823512

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ba780d21329bbb2418bd35baa39f26e4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311511
+  packageName: UCurses
+  packageVersion: 1.02.1
+  assetPath: Assets/UCurses/Prefab/Subcanvas.prefab
+  uploadId: 823512

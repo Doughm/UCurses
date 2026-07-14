@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 0af65f20b1a7f134898829d1ab4b4083
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311511
+  packageName: UCurses
+  packageVersion: 1.02.1
+  assetPath: Assets/UCurses/Code/SampleScript.cs
+  uploadId: 823512

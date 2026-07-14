@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 74848665443d9194e9cb170bd6b7d2e9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311511
+  packageName: UCurses
+  packageVersion: 1.02.1
+  assetPath: Assets/UCurses/Prefab/Grid_Tile.prefab
+  uploadId: 823512

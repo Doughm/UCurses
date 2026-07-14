@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f0220fb16f48196448f5ec3ee557ab3e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311511
+  packageName: UCurses
+  packageVersion: 1.02.1
+  assetPath: Assets/UCurses/Resources/Prefab/UCurses.prefab
+  uploadId: 823512
