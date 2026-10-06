@@ -138,6 +138,14 @@ namespace UCursesInclude
             _canvasGridObject.GetComponent<CanvasScaler>().referenceResolution = _dosScreenResolution;
         }
 
+        //Changes the DOS console screen settings being emulated within Ucurses during runtime.
+        public void changeDosScreenMode(DosScreenMode screenMode)
+        {
+            GridSetup setup = new GridSetup();
+            setup.generateGrid(screenMode.GridSize, screenMode.DosScreenResolution, screenMode.AspectRatio, screenMode.ScreenAlignment, screenMode.ScreenOffset,
+                               screenMode.CharacterSize, screenMode.OffsetLine, screenMode.ScreenFilterMode, screenMode.CharacterFilterMode);
+        }
+
         //Sets the array of ascii image sprites used for the character grid.
         public void setCharSprites(CharSprite[] charSprites)
         {
@@ -667,6 +675,98 @@ namespace UCursesInclude
         public FilterMode CharacterFilterMode
         {
             get { return _characterFilterMode; }
+        }
+    }
+
+
+
+
+    //Class used for creation of screen grid.
+    public class GridSetup
+    {
+        private const int StartOfUI = 179;
+        private const int EndOfUI = 218;
+
+        private char[] _asciiCharacterSet = new char[] { '☺', '☻', '♥', '♦', '♣', '♠', '•', '◘', '○', '◙', '♂', '♀', '♪', '♫', '☼', '►', '◄', '↕', '‼', '¶', '§', '▬', '↨', '↑', '↓', '→', '←', '∟', '↔', '▲', '▼',
+                                    ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?',
+                                    '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_',
+                                    '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '⌂',
+                                    'Ç', 'ü', 'é', 'â', 'ä', 'à', 'å', 'ç', 'ê', 'ë', 'è', 'ï', 'î', 'ì', 'Ä', 'Å', 'É', 'æ', 'Æ', 'ô', 'ö', 'ò', 'û', 'ù', 'ÿ', 'Ö', 'Ü', '¢', '£', '¥', '₧', 'ƒ',
+                                    'á', 'í', 'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', '¿', '⌐', '¬', '½', '¼', '¡', '«', '»', '░', '▒', '▓', '│', '┤', '╡', '╢', '╖', '╕', '╣', '║', '╗', '╝', '╜', '╛', '┐',
+                                    '└', '┴', '┬', '├', '─', '┼', '╞', '╟', '╚', '╔', '╩', '╦', '╠', '═', '╬', '╧', '╨', '╤', '╥', '╙', '╘', '╒', '╓', '╫', '╪', '┘', '┌', '█', '▄', '▌', '▐', '▀',
+                                    'α', 'ß', 'Γ', 'π', 'Σ', 'σ', 'µ', 'τ', 'Φ', 'Θ', 'Ω', 'δ', '∞', 'φ', 'ε', '∩', '≡', '±', '≥', '≤', '⌠', '⌡', '÷', '≈', '°', '∙', '·', '√', 'ⁿ', '²', '■',};
+
+        public void generateGrid(Vector2Int gridSize, Vector2Int dosScreenResolution, float aspectRatio, ScreenAlignment screenAlignment,float alignmentOffset,
+                                 Vector2Int characterSize, bool offsetLine, FilterMode filterModeScreen, FilterMode filterModeCharacters)
+        {
+            while (true)
+            {
+                Camera cameras = Object.FindAnyObjectByType<Camera>();
+                if (cameras != null)
+                {
+                    if (Application.isEditor == true)
+                    {
+                        Object.DestroyImmediate(cameras.gameObject);
+                    }
+                    else
+                    {
+                        Object.Destroy(cameras.gameObject);
+                    }
+                }
+                else { break; }
+            }
+
+            while (true)
+            {
+                Canvas canvases = Object.FindAnyObjectByType<Canvas>();
+                if (canvases != null)
+                {
+                    if (Application.isEditor == true)
+                    {
+                        Object.DestroyImmediate(canvases.gameObject);
+                    }
+                    else
+                    {
+                        Object.Destroy(canvases.gameObject);
+                    }
+                }
+                else { break; }
+            }
+
+            UCurses curses = Object.FindAnyObjectByType<UCurses>();
+            if (curses != null)
+            {
+                if (Application.isEditor == true)
+                {
+                    Object.DestroyImmediate(curses.gameObject);
+                }
+                else
+                {
+                    Object.Destroy(curses.gameObject);
+                }
+            }
+            GameObject cursesObject = Object.Instantiate(Resources.Load("Prefab/UCurses", typeof(GameObject))) as GameObject;
+            cursesObject.name = "UCurses";
+            curses = cursesObject.GetComponent<UCurses>();
+
+            Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Sprites");
+
+            CharSprite[] spriteIndex = new CharSprite[_asciiCharacterSet.Length];
+
+            for (int i = 0; i < _asciiCharacterSet.Length - 1; i++)
+            {
+                if (i + 1 >= StartOfUI && i + 1 <= EndOfUI)
+                {
+                    spriteIndex[i] = new CharSprite(i + 1, _asciiCharacterSet[i], spriteSheet[i], true, filterModeCharacters);
+                }
+                else
+                {
+                    spriteIndex[i] = new CharSprite(i + 1, _asciiCharacterSet[i], spriteSheet[i], false, filterModeCharacters);
+                }
+            }
+
+            curses.setCharSprites(spriteIndex);
+            curses.setDosScreenMode(new DosScreenMode(gridSize, dosScreenResolution, aspectRatio, screenAlignment, alignmentOffset, characterSize, offsetLine, filterModeScreen, filterModeCharacters));
         }
     }
 }

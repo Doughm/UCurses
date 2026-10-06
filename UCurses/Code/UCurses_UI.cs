@@ -6,9 +6,6 @@ namespace UCursesInclude
 {
     public class UCurses_UI : EditorWindow
     {
-        private const int StartOfUI = 179;
-        private const int EndOfUI = 218;
-
         private Vector2Int _gridSize;
         private Vector2Int _dosScreenResolution;
         private float _aspectRatio;
@@ -30,14 +27,7 @@ namespace UCursesInclude
         private string[] _gridSizeDropdown = new string[] { "40×25 (320×200)", "80×25 (640×200)", "80×50 (640×400)", "80×60 (640×480)", "80×30 (640×480)", "80×25 (720×400)", "Custom" };
         private string[] _aspectRatioDropdown = new string[] { "Original", "3:2", "4:3", "5:4", "16:9", "16:10" };
         private string[] _screenAlignmentDropdown = new string[] { "Middle", "Left", "Right"};
-        private char[] _asciiCharacterSet = new char[] { '☺', '☻', '♥', '♦', '♣', '♠', '•', '◘', '○', '◙', '♂', '♀', '♪', '♫', '☼', '►', '◄', '↕', '‼', '¶', '§', '▬', '↨', '↑', '↓', '→', '←', '∟', '↔', '▲', '▼',
-                                    ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?',
-                                    '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_',
-                                    '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '⌂',
-                                    'Ç', 'ü', 'é', 'â', 'ä', 'à', 'å', 'ç', 'ê', 'ë', 'è', 'ï', 'î', 'ì', 'Ä', 'Å', 'É', 'æ', 'Æ', 'ô', 'ö', 'ò', 'û', 'ù', 'ÿ', 'Ö', 'Ü', '¢', '£', '¥', '₧', 'ƒ',
-                                    'á', 'í', 'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', '¿', '⌐', '¬', '½', '¼', '¡', '«', '»', '░', '▒', '▓', '│', '┤', '╡', '╢', '╖', '╕', '╣', '║', '╗', '╝', '╜', '╛', '┐',
-                                    '└', '┴', '┬', '├', '─', '┼', '╞', '╟', '╚', '╔', '╩', '╦', '╠', '═', '╬', '╧', '╨', '╤', '╥', '╙', '╘', '╒', '╓', '╫', '╪', '┘', '┌', '█', '▄', '▌', '▐', '▀',
-                                    'α', 'ß', 'Γ', 'π', 'Σ', 'σ', 'µ', 'τ', 'Φ', 'Θ', 'Ω', 'δ', '∞', 'φ', 'ε', '∩', '≡', '±', '≥', '≤', '⌠', '⌡', '÷', '≈', '°', '∙', '·', '√', 'ⁿ', '²', '■',};
+
 
 
 
@@ -198,53 +188,9 @@ namespace UCursesInclude
 
             if (GUILayout.Button("Set Grid"))
             {
-                while (true)
-                {
-                    Camera cameras = Object.FindAnyObjectByType<Camera>();
-                    if (cameras != null)
-                    {
-                        DestroyImmediate(cameras.gameObject);
-                    }
-                    else { break; }
-                }
+                GridSetup setup = new GridSetup();
 
-                while (true)
-                {
-                    Canvas canvases = Object.FindAnyObjectByType<Canvas>();
-                    if (canvases != null)
-                    {
-                        DestroyImmediate(canvases.gameObject);
-                    }
-                    else { break; }
-                }
-
-                UCurses curses = Object.FindAnyObjectByType<UCurses>();
-                if (curses != null)
-                {
-                    DestroyImmediate(curses.gameObject);
-                }
-                GameObject cursesObject = Instantiate(Resources.Load("Prefab/UCurses", typeof(GameObject))) as GameObject;
-                cursesObject.name = "UCurses";
-                curses = cursesObject.GetComponent<UCurses>();
-
-                Sprite[] spriteSheet = Resources.LoadAll<Sprite>("Sprites");
-
-                CharSprite[] spriteIndex = new CharSprite[_asciiCharacterSet.Length];
-
-                for (int i = 0; i < _asciiCharacterSet.Length - 1; i++)
-                {
-                    if (i + 1 >= StartOfUI && i + 1 <= EndOfUI)
-                    {
-                        spriteIndex[i] = new CharSprite(i + 1, _asciiCharacterSet[i], spriteSheet[i], true, _filterModeCharacters);
-                    }
-                    else
-                    {
-                        spriteIndex[i] = new CharSprite(i + 1, _asciiCharacterSet[i], spriteSheet[i], false, _filterModeCharacters);
-                    }
-                }
-
-                curses.setCharSprites(spriteIndex);
-                curses.setDosScreenMode(new DosScreenMode(_gridSize, _dosScreenResolution, _aspectRatio, _screenAlignment, _alignmentOffsetSelection, _characterSize, _offsetLine, _filterModeScreen, _filterModeCharacters));
+                setup.generateGrid(_gridSize, _dosScreenResolution, _aspectRatio, _screenAlignment, _alignmentOffsetSelection, _characterSize, _offsetLine, _filterModeScreen, _filterModeCharacters);
 
                 EditorPrefs.SetInt("GridPopupSelection", _gridSizePopupSelection);
                 EditorPrefs.SetInt("AspectRatioSelection", _aspectRatioPopupSelection);
